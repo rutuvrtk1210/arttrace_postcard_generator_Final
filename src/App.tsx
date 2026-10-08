@@ -122,7 +122,7 @@ function ThemeToggle({
 
 function UploadScreen({ onSelect }: { onSelect: (image: string) => void }) {
   const [image, setImage] = useState<string | null>(null)
-  const [showLibrary, setShowLibrary] = useState(false)
+  const [showLibrary, setShowLibrary] = useState(true)
   const fileRef = useRef<HTMLInputElement>(null)
 
   const chooseFile = (file?: File) => {
@@ -134,11 +134,7 @@ function UploadScreen({ onSelect }: { onSelect: (image: string) => void }) {
     <main className="upload-screen trace-screen">
       <header><Brand /><span>HOME</span></header>
       <section className="upload-intro">
-        <h1>
-          {showLibrary
-            ? <>Select a photograph to create your <strong>Postcard</strong></>
-            : <>Hey <strong>students!</strong><br /><strong>CAL STATE Long Beach</strong></>}
-        </h1>
+        <h1>Hey <strong>students!</strong><br /><strong>CAL STATE Long Beach</strong></h1>
         <p>HAVE YOU NOTICED THESE SCULPTURES BEFORE? SELECT ONE YOU SEE AROUND CAMPUS EVERYDAY.</p>
       </section>
 
@@ -176,15 +172,11 @@ function UploadScreen({ onSelect }: { onSelect: (image: string) => void }) {
       </section>
 
       <aside className="trace-tools trace-left-tools">
-        <WorkspaceTool assetSrc="/assets/267db.svg" label="UPLOAD" path="M12 16V4M7 9l5-5 5 5M5 14v5h14v-5" onClick={() => fileRef.current?.click()} />
         <WorkspaceTool assetSrc="/assets/6eb26.svg" label="UNDO" path="M9 7 4 12l5 5M5 12h9a5 5 0 0 1 5 5" disabled />
         <WorkspaceTool assetSrc="/assets/4efa9.svg" label="REDO" path="m15 7 5 5-5 5M19 12h-9a5 5 0 0 0-5 5" disabled />
       </aside>
-      <aside className="trace-tools trace-right-tools">
-        <WorkspaceTool label="SHARE" path="M18 8a3 3 0 1 0-2.8-4M6 15a3 3 0 1 0 0 6M18 14a3 3 0 1 0 0 6M8.6 17.5l6.8-3M8.6 6.5l6.8 3" />
-      </aside>
-      <Button className="trace-back" disabled><Icon path="M15 18l-6-6 6-6" /> Back</Button>
-      <Button className="trace-next" disabled={!image} onClick={() => image && onSelect(image)}>Next <Icon path="M5 12h14M14 7l5 5-5 5" /></Button>
+      <Button className="trace-back nav-circle" disabled><Icon path="M15 18l-6-6 6-6" /><small>BACK</small></Button>
+      <Button className="trace-next nav-circle" disabled={!image} onClick={() => image && onSelect(image)}><Icon path="M9 6l6 6-6 6" /><small>NEXT</small></Button>
     </main>
   )
 }
@@ -215,11 +207,11 @@ function FeatureChrome({
       </header>
       {children}
       <footer className="feature-nav">
-        <Button className="back-button" onClick={onBack}>
-          <img src="/assets/b29e0.svg" alt="" /> Back
+        <Button className="back-button nav-circle" onClick={onBack}>
+          <Icon path="M15 18l-6-6 6-6" /><small>BACK</small>
         </Button>
-        <Button className="next-button" onClick={onNext} disabled={nextDisabled}>
-          <img src="/assets/143eb.svg" alt="" /> {nextLabel}
+        <Button className="next-button nav-circle" onClick={onNext} disabled={nextDisabled}>
+          <Icon path="M9 6l6 6-6 6" /><small>{nextLabel === "Next" ? "NEXT" : nextLabel.toUpperCase()}</small>
         </Button>
       </footer>
     </main>
@@ -1544,7 +1536,7 @@ function FinalScreen({
             <Button className="reset-layout" onClick={() => setElements(defaultComposition(completed))}><Icon path="M5 5v5h5M5 10a8 8 0 1 1 2 7" />Reset treemap layout</Button>
           </aside>
         </section>
-        <Button className="composer-back" onClick={() => setStage("choose")}><Icon path="M15 18l-6-6 6-6" /> Back</Button>
+        <Button className="composer-back nav-circle" onClick={() => setStage("choose")}><Icon path="M15 18l-6-6 6-6" /><small>BACK</small></Button>
         <Button className="composer-continue" onClick={() => setStage("sign")}>Continue <Icon path="M5 12h14M14 7l5 5-5 5" /></Button>
       </main>
     )
@@ -1568,8 +1560,8 @@ function FinalScreen({
           <div className="signature-preview">{name || "Write your Name..."}</div>
           <Button disabled={!name.trim()} onClick={() => setStage("finished")}>Show preview <Icon path="M5 12h14M14 7l5 5-5 5" /></Button>
         </section>
-        <Button className="sign-back" onClick={() => setStage("choose")}><Icon path="M15 18l-6-6 6-6" /> Back</Button>
-        <Button className="sign-next" disabled={!name.trim()} onClick={() => setStage("finished")}>Next <Icon path="M5 12h14M14 7l5 5-5 5" /></Button>
+        <Button className="sign-back nav-circle" onClick={() => setStage("choose")}><Icon path="M15 18l-6-6 6-6" /><small>BACK</small></Button>
+        <Button className="sign-next nav-circle" disabled={!name.trim()} onClick={() => setStage("finished")}><Icon path="M9 6l6 6-6 6" /><small>NEXT</small></Button>
       </main>
     )
   }
@@ -1659,7 +1651,7 @@ function FinalScreen({
           <b>Merge All into 1 Postcard</b><span>Open the editable treemap composer</span>
         </Button>
       </section>
-      <Button className="preview-back" onClick={onRestart}><Icon path="M15 18l-6-6 6-6" /> Back</Button>
+      <Button className="preview-back nav-circle" onClick={onRestart}><Icon path="M15 18l-6-6 6-6" /><small>BACK</small></Button>
       <Button className="preview-next" disabled={!completed.length} onClick={() => setStage("edit")}>Next <Icon path="M5 12h14M14 7l5 5-5 5" /></Button>
     </main>
   )

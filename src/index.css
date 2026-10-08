@@ -154,9 +154,22 @@ button { color: inherit; }
   display: flex;
   align-items: center;
   justify-content: space-between;
+  position: relative;
+}
+
+/* Center the arttrace wordmark in the header (matches HEADER.svg, where the
+   wordmark is horizontally centered). The day/night pill and hamburger are
+   absolutely positioned over the corners, so centering the brand does not
+   collide with them. The status label is pinned right so it can't offset
+   the visual center. */
+.upload-screen > header .brand, .final-screen > header .brand {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .upload-screen > header > span, .final-screen > header > span {
+  margin-left: auto;
   color: var(--muted);
   font-size: 9px;
   letter-spacing: .16em;
@@ -3925,3 +3938,46 @@ button { color: inherit; }
     transform: none;
   }
 }
+
+/* ---- Consistent round BACK / NEXT nav buttons (match the SVG frames) ----
+   A dark circular disc with a chevron, and a small bold uppercase label
+   beneath it. Applied via the shared .nav-circle class on every screen's
+   Back/Next so they are identical everywhere. */
+.nav-circle {
+  display: inline-flex !important;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-width: 0 !important;
+  width: auto !important;
+  height: auto !important;
+  padding: 0 !important;
+  background: none !important;
+  box-shadow: none !important;
+  color: #2F2F2F;
+}
+.nav-circle > svg {
+  width: 22px !important;
+  height: 22px;
+  padding: 15px;
+  border-radius: 50%;
+  background: #2F2F2F;
+  stroke: #fff;
+  stroke-width: 2.4;
+  box-shadow: 0 8px 20px rgba(0,0,0,.18);
+  box-sizing: content-box;
+}
+.nav-circle > img { display: none !important; }
+.nav-circle > small {
+  font-family: "Rounded Mplus 1c:Bold", "Rounded Mplus 1c", Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .04em;
+  color: #2F2F2F;
+  text-transform: uppercase;
+}
+.nav-circle:disabled { opacity: .32; }
+:root[data-theme="night"] .nav-circle > svg { background: #f2efe6; stroke: #202733; }
+:root[data-theme="night"] .nav-circle,
+:root[data-theme="night"] .nav-circle > small { color: #f2efe6; }
